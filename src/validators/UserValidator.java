@@ -9,12 +9,12 @@ import models.User;
 import utils.DBUtil;
 
 public class UserValidator {
-	 public static List<String> validate(User u, Boolean loginIdDuplicateCheckFlag, Boolean passwordCheckFlag) {
+	 public static List<String> validate(User u, Boolean login_idDuplicateCheckFlag, Boolean passwordCheckFlag) {
 	        List<String> errors = new ArrayList<String>();
 
-	        String loginId_error = validateLoginId(u.getLogin_id(), loginIdDuplicateCheckFlag);
-	        if(!loginId_error.equals("")) {
-	            errors.add(loginId_error);
+	        String login_id_error = validateLoginId(u.getLogin_id(), login_idDuplicateCheckFlag);
+	        if(!login_id_error.equals("")) {
+	            errors.add(login_id_error);
 	        }
 
 	        String name_error = validateName(u.getName());
