@@ -13,7 +13,7 @@
 <input type="text" name="login_id" value="${user.login_id}" />
 <br /><br />
 
-<label for="name">氏名</label><br />
+<label for="name">ユーザーネーム</label><br />
 <input type="text" name="name" value="${user.name}" />
 <br /><br />
 
