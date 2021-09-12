@@ -1,4 +1,4 @@
-package controllers.users;
+package controllers.record;
 
 import java.io.IOException;
 
@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Study;
 import models.User;
 
 /**
- * Servlet implementation class UsersNewServlet
+ * Servlet implementation class DailyServlet
  */
-@WebServlet("/users/new")
-public class UsersNewServlet extends HttpServlet {
+@WebServlet("/daily")
+public class DailyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsersNewServlet() {
+    public DailyServlet() {
         super();
     }
 
@@ -30,11 +31,17 @@ public class UsersNewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("user", new User());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
-        rd.forward(request, response);
+		Study s = new Study();
 
+		// ログインしているユーザーの情報を予め格納しておく
+		User login_user = (User) request.getSession().getAttribute("login_user");
+		s.setUser(login_user);
+
+		request.setAttribute("study", s);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/record/record.jsp");
+		rd.forward(request, response);
 	}
 
 }

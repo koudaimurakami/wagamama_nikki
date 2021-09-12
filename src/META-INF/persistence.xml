@@ -3,9 +3,10 @@
 	<persistence-unit name="wagamama_nikki" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>models.User</class>
+		<class>models.Study</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/daily_report_system?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/wagamama_nikki?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>
 			<property name="javax.persistence.jdbc.user" value="waguser"/>
 			<property name="javax.persistence.jdbc.password" value="wagpass"/>
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>

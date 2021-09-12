@@ -11,7 +11,13 @@
     <body>
     	 <div id="wrapper">
             <div id="header">
-                <h1>わがまま日記</h1>
+            	<div id="header_menu">
+            		 <h1><a href="<c:url value='/' />">わがまま日記</a></h1>&nbsp;&nbsp;&nbsp;
+            		 <c:if test="${sessionScope.login_user != null}">
+                       <a href="<c:url value='/index.html' />">トップページ</a>&nbsp;
+                        <a href="<c:url value='/mypage' />">マイページ</a>&nbsp;
+                    </c:if>
+            	</div>
             </div>
             <div id="content">
                 ${param.content}
