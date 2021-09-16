@@ -1,8 +1,11 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CalendarLogic {
+
+
 	//カレンダーインスタンスを生成するメソッド(int...は可変長引数)
 		public Calendars createCalendars(int... args) {
 			//Calendarsクラスのインスタンス生成
@@ -58,7 +61,8 @@ public class CalendarLogic {
 						int the_day = now.get(Calendar.DAY_OF_WEEK) - 1;  // 何曜日か（配列の横の何個目か）
 
 
-						/* これらの変数の中身をコンソールで確認
+						/*
+						// これらの変数の中身をコンソールで確認
 						System.out.println(now.get(Calendar.DATE) + "あ");
 						System.out.println(date_today + "い");
 						System.out.println(now.get(Calendar.MONTH)+1 + "う");
@@ -69,9 +73,10 @@ public class CalendarLogic {
 						System.out.println(weeks + "く");
 						System.out.println(the_day + "け");
 						*/
+
 						//今作業している Calendars が今この瞬間のリアルタイムと同じだったら、今月のカレンダーの今日の日付の先頭に ● を付ける
-						if(now.get(Calendar.MONTH)+1 == cls.getMonth()  && now.get(Calendar.YEAR) == cls.getYear() && 0 <= i && i < rows && 0 <= j && j < 7 && i == weeks && j == the_day ) {  // date > date_data ,  now > cal
-							date[weeks][the_day] = "●" + date[i][j];  // data > date, data > date,  date[i][j] > String.valueOf(date_data)
+						if(now.get(Calendar.MONTH)+1 == cls.getMonth()  && now.get(Calendar.YEAR) == cls.getYear() && 0 <= i && i < rows && 0 <= j && j < 7 && i == weeks && j == the_day ) {
+							date[weeks][the_day] = "●" + date[i][j];
 						} else {
 							System.out.println("指定されたインデックスの値が不正です。weeks = " + weeks + "the_day = " + the_day );
 						}
@@ -81,5 +86,53 @@ public class CalendarLogic {
 			//作成した2次元配列を Calendarsにセットする。
 			cls.setDate(date);  // data > date
 			return cls;
+		}
+
+
+
+		/**
+		当月の1日から末日までのArrayListを生成する
+		@return ArrayList<Calendar>
+		*/
+		public ArrayList<Calendar> generateDays() {
+
+			//空のArrayListを生成
+			ArrayList<Calendar> cl = new ArrayList<Calendar>();
+			Calendar cal =Calendar.getInstance();
+			return this.generateCalendars(cl, cal);
+		}
+
+
+		// 月の日数分をArrayListに追加していく似たような処理は、
+		// generateDays() と、generateDays(int year, int month) とで、共通化する
+		private ArrayList<Calendar> generateCalendars(ArrayList<Calendar> cl, Calendar cal) {
+			// 月の末日
+			int lastDay = cal.getActualMaximum(Calendar.DATE);
+
+			// その月の日数分だけCalendarのインスタンスを作って、clに追加していく
+			for (int i = 0; i < lastDay; i++) {
+				Calendar newCal = (Calendar)cal.clone();
+				newCal.set(Calendar.DATE, i+1);
+				cl.add(newCal);
+			}
+			return cl;
+		}
+
+
+		/**
+		指定された年月の１日から末日までのArrayListを生成する
+		@parem int year
+		@int month
+		@ArrayList<Calendar>
+		*/
+		public ArrayList<Calendar> generateDays(int year, int month) {
+
+			// 空のArrayListを生成
+			ArrayList<Calendar> cl = new ArrayList<Calendar>();
+			Calendar cal = Calendar.getInstance();
+			cal.clear();
+			cal.set(year, month-1, 1);
+
+			return this.generateCalendars(cl, cal);
 		}
 }

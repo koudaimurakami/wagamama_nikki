@@ -18,6 +18,12 @@
                         <a href="<c:url value='/mypage' />">マイページ</a>&nbsp;
                     </c:if>
             	</div>
+            	 <c:if test="${sessionScope.login_user != null}">
+                    <div id="user_name">
+                        <c:out value="${sessionScope.login_user.name}" />&nbsp;さん&nbsp;&nbsp;&nbsp;
+                        <a href="<c:url value='/logout' />">ログアウト</a>
+                    </div>
+                </c:if>
             </div>
             <div id="content">
                 ${param.content}
