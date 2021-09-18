@@ -117,18 +117,6 @@
 		<%--共通部分なので、ここのtdタグは書かない --%>
 	</tr>
 
-	<tr>
-		<th>△</th>
-		<td>
-			<button
-				type = "submit"
-				name = "stu_hour"
-				value = "0"
-			>ノータッチ</button>
-		</td>
-		<td>忙しかったのかな...。今週中に取り返せば大丈夫です！</td>
-	</tr>
-
 
 	<tr>
 		<th>♪</th>

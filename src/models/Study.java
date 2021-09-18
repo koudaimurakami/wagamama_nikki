@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +34,11 @@ public class Study {
 	@Column(name = "study_hour", nullable = false)
 	private int study_hour;
 
+	@Column(name = "study_date", nullable = false)
+	private Date study_date;
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -55,5 +62,16 @@ public class Study {
 	public void setStudy_hour(int study_hour) {
 		this.study_hour = study_hour;
 	}
+
+	public Date getStudy_date() {
+		return study_date;
+	}
+
+	public void setStudy_date(Date study_date) {
+		this.study_date = study_date;
+	}
+
+
+
 
 	}

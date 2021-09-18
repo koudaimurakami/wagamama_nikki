@@ -110,6 +110,7 @@ public class TopPageIndexServlet extends HttpServlet {
 		}
 
 
+
 		request.setAttribute("dates", dates);
 
 

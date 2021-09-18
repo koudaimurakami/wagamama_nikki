@@ -5,6 +5,9 @@
 ArrayList<Calendar> dates = (ArrayList<Calendar>)request.getAttribute("dates");
 %>
 
+<% Date record_day = (Date)request.getSession().getAttribute("record_day"); %>
+<% String mark = (String)request.getSession().getAttribute("mark"); %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -67,8 +70,8 @@ ArrayList<Calendar> dates = (ArrayList<Calendar>)request.getAttribute("dates");
   				<td>
   					<% if (dates.get(i) != null) { %>
   						<%=sdf.format(dates.get(i).getTime()) %>
+						<% if (sdf.format(dates.get(i).getTime()).equals(sdf.format(new Date()))) { %>*<% } %>
 					<% } %>
-					<% if (dates.get(i) != null && sdf.format(dates.get(i).getTime()).equals(sdf.format(new Date()))) { %>*<% } %>
   				</td>
   				<% if ((i+1) % 7 == 0) { %>
   				</tr>
