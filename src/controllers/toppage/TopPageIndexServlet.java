@@ -1,7 +1,6 @@
 package controllers.toppage;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -50,11 +49,26 @@ public class TopPageIndexServlet extends HttpServlet {
 		String s_month = request.getParameter("month");
 
 
+		int year;
+		int month;
+		if (s_year == null || s_month == null) {
+		    Calendar calend = Calendar.getInstance();
+		    year = calend.get(Calendar.YEAR);
+		    month = calend.get(Calendar.MONTH)+1;
+		} else {
+		    year = Integer.parseInt(s_year);
+		    month = Integer.parseInt(s_month);
+		}
+
+
+
+
+
 		Calendars cls = null;
 
 		if(s_year != null && s_month != null) {
-			int year = Integer.parseInt(s_year);
-			int month = Integer.parseInt(s_month);
+
+
 			if(month == 0) {
 				month = 12;
 				year--;
@@ -79,11 +93,7 @@ public class TopPageIndexServlet extends HttpServlet {
 
 		// パターン①
 		Calendar cl = Calendar.getInstance();
-
-		// SimpleDateFormatクラスを使用
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-		request.setAttribute("daily", sdf.format(cl.getTime()));
+		request.setAttribute("daily", cl);
 
 		// もう一つのパターン  パターン②
 		request.setAttribute("cls_r", cls);
@@ -91,19 +101,39 @@ public class TopPageIndexServlet extends HttpServlet {
 
 
 
+		ArrayList<Calendar> dates;
+
+		if(s_year != null && s_month != null) {
+
+			if(month == 0) {
+				month = 12;
+				year--;
+			}
+			if(month == 13) {
+				month = 1;
+				year++;
+			}
+			//年と月のクエリパラメーターが来ている場合にはその年月でカレンダーを生成する
+			cls = logic.createCalendars(year,month);
+			dates = logic.generateDays(year, month);
+		}else {
+			//クエリパラメータが来ていないときは実行日時のカレンダーを生成する。
+			cls = logic.createCalendars();
+
+			dates = logic.generateDays(year, month);
+		}
+
+
 		// 今月を指定
 		// Date の二次元配列を生成する
-		ArrayList<Calendar> dates = logic.generateDays();
+
 		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;
 		int monthEnd = dates.get(0).getActualMaximum(Calendar.DATE);
 
 
-		/*
-		// ここからサンプルで、2021/1月を指定
-		// Date の二次元配列を生成する
-		ArrayList<Calendar> dates = logic.generateDays(2021,1);
-		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;
-		*/
+
+
+
 
 
 
@@ -118,17 +148,34 @@ public class TopPageIndexServlet extends HttpServlet {
 			dates.add(i, null);
 		}
 
+		/*
+		// 前月を表示
+		ArrayList<Calendar> last_month = logic.generateDays(year-1,month-1);
+
+		for (int i = 0; i < weekStart; i++) {
+			last_month.add(i, null);
+		}
+
+		for (int j = last_month.size(); j < 7 * calendarRows; j++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
+				last_month.add(j, null);
+		}
+		*/
+
 		User login_user = (User) request.getSession().getAttribute("login_user");
 
 		Calendar dis_month_1 = Calendar.getInstance();
-		dis_month_1.set(Calendar.DATE, 1);
+		dis_month_1.clear();
+		dis_month_1.set(year, month-1, 1);
+
 		System.out.println(dis_month_1 + "今月の一日");
 
 		int dis_month_count = dis_month_1.getActualMaximum(Calendar.DAY_OF_MONTH);
 		System.out.println(dis_month_count + "今月の日数");
 
 		Calendar dis_month_last = Calendar.getInstance();
-		dis_month_last.set(Calendar.DATE, dis_month_count);
+		dis_month_last.clear();
+		dis_month_last.set(year, month-1, dis_month_count);
+
 		System.out.println(dis_month_last + "今月の最終日");
 
 		List<Study> study_date = em.createNamedQuery("StudyLog", Study.class)
@@ -140,6 +187,9 @@ public class TopPageIndexServlet extends HttpServlet {
 		request.setAttribute("study_date", study_date);
 
 
+
+		Calendar today = dates.get(weekStart);
+		request.setAttribute("today",today);
 
 		request.setAttribute("dates", dates);
 
