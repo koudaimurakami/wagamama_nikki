@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TemporalType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.CalendarLogic;
 import models.Calendars;
+import models.Study;
+import models.User;
+import utils.DBUtil;
 
 /**
  * Servlet implementation class TopPageIndexServlet
@@ -33,6 +39,8 @@ public class TopPageIndexServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		EntityManager em = DBUtil.createEntityManager();
 
 		CalendarLogic logic = new CalendarLogic();
 
@@ -87,6 +95,7 @@ public class TopPageIndexServlet extends HttpServlet {
 		// Date の二次元配列を生成する
 		ArrayList<Calendar> dates = logic.generateDays();
 		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;
+		int monthEnd = dates.get(0).getActualMaximum(Calendar.DATE);
 
 
 		/*
@@ -103,11 +112,32 @@ public class TopPageIndexServlet extends HttpServlet {
 			dates.add(i, null);
 		}
 
-		// 今月の日数分より後で、42に満たない分も null を追加
-		// （カレンダーは最大で、6週表示されることがあるから）
-		for (int i = dates.size(); i < 7 * 6; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
+		// dates.size() に応じて残りのカレンダーの null を埋める
+		int calendarRows = (weekStart + monthEnd) / 7 + 1;
+		for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
 			dates.add(i, null);
 		}
+
+		User login_user = (User) request.getSession().getAttribute("login_user");
+
+		Calendar dis_month_1 = Calendar.getInstance();
+		dis_month_1.set(Calendar.DATE, 1);
+		System.out.println(dis_month_1 + "今月の一日");
+
+		int dis_month_count = dis_month_1.getActualMaximum(Calendar.DAY_OF_MONTH);
+		System.out.println(dis_month_count + "今月の日数");
+
+		Calendar dis_month_last = Calendar.getInstance();
+		dis_month_last.set(Calendar.DATE, dis_month_count);
+		System.out.println(dis_month_last + "今月の最終日");
+
+		List<Study> study_date = em.createNamedQuery("StudyLog", Study.class)
+									.setParameter("user", login_user)
+									.setParameter("this_month_1", dis_month_1, TemporalType.DATE)
+									.setParameter("this_month_last", dis_month_last, TemporalType.DATE)
+									.getResultList();
+
+		request.setAttribute("study_date", study_date);
 
 
 

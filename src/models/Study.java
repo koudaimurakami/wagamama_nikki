@@ -18,6 +18,10 @@ import javax.persistence.Table;
 	@NamedQuery(
 			name = "sumStudyHour",
 			query = "SELECT SUM(s.study_hour) FROM Study AS s WHERE s.user = :user"
+			),
+	@NamedQuery(
+			name = "StudyLog",
+			query = "SELECT s FROM Study AS s WHERE s.user = :user AND s.study_date BETWEEN :this_month_1 AND :this_month_last"
 			)
 })
 @Entity
@@ -71,7 +75,18 @@ public class Study {
 		this.study_date = study_date;
 	}
 
+public String getStudyMark() {
 
+	if (this.study_hour >= 8) {
+		return "☆";
+	} else if (this.study_hour < 8 && this.study_hour >= 4) {
+		return "◎";
+	} else if (this.study_hour < 4 && this.study_hour >=1) {
+		return "○";
+	} else {
+		return "♪";
+	}
+}
 
 
 	}
