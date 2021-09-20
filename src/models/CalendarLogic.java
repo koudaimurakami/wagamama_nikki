@@ -6,6 +6,7 @@ import java.util.Calendar;
 public class CalendarLogic {
 
 
+	/*
 	//カレンダーインスタンスを生成するメソッド(int...は可変長引数)
 		public Calendars createCalendars(int... args) {
 			//Calendarsクラスのインスタンス生成
@@ -61,18 +62,7 @@ public class CalendarLogic {
 						int the_day = now.get(Calendar.DAY_OF_WEEK) - 1;  // 何曜日か（配列の横の何個目か）
 
 
-						/*
-						// これらの変数の中身をコンソールで確認
-						System.out.println(now.get(Calendar.DATE) + "あ");
-						System.out.println(date_today + "い");
-						System.out.println(now.get(Calendar.MONTH)+1 + "う");
-						System.out.println(cls.getMonth() + "え");
-						System.out.println(now.get(Calendar.YEAR) + "お");
-						System.out.println(cls.getYear() + "か");
-						System.out.println(rows + "き");
-						System.out.println(weeks + "く");
-						System.out.println(the_day + "け");
-						*/
+
 
 						//今作業している Calendars が今この瞬間のリアルタイムと同じだったら、今月のカレンダーの今日の日付の先頭に ● を付ける
 						if(now.get(Calendar.MONTH)+1 == cls.getMonth()  && now.get(Calendar.YEAR) == cls.getYear() && 0 <= i && i < rows && 0 <= j && j < 7 && i == weeks && j == the_day ) {
@@ -87,6 +77,7 @@ public class CalendarLogic {
 			cls.setDate(date);  // data > date
 			return cls;
 		}
+		*/
 
 
 

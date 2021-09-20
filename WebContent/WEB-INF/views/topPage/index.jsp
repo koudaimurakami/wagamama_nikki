@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="models.Calendars, models.Study, java.util.ArrayList, java.util.Calendar, java.text.SimpleDateFormat, java.util.Date, java.util.List" %>
-<% Calendars cls=(Calendars)request.getAttribute("cls"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="models.Study, java.util.ArrayList, java.util.Calendar, java.text.SimpleDateFormat, java.util.Date, java.util.List" %>
 <%
 @SuppressWarnings("unchecked")
 ArrayList<Calendar> dates = (ArrayList<Calendar>)request.getAttribute("dates");
@@ -29,7 +28,9 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 					<a href="?year=<%=today.get(Calendar.YEAR)%>&month=<%=today.get(Calendar.MONTH)+1-1%>">前月</a>
 			    	<a href="?year=<%=today.get(Calendar.YEAR)%>&month=<%=today.get(Calendar.MONTH)+1+1%>">翌月</a>
 			    </p>
-			    <table>
+
+
+			    <%-- <table>
 			      <tr>
 			        <th>日</th>
 			        <th>月</th>
@@ -53,10 +54,12 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 			      </table>
   			</div><!-- end container-->
   			<div id="record">
-  			<%--パターン① --%>
-  				<h3>${daily}の学習記録</h3>
-			<%--パターン② --%>
-  				<h4><%=today.get(Calendar.YEAR) %>年<%=today.get(Calendar.MONTH)+1%>月<%=daily.get(Calendar.DATE) %>日の勉強時間</h4>
+			     --%>
+
+
+
+
+  				<h4>今日（<%=daily.get(Calendar.YEAR) %>年<%=daily.get(Calendar.MONTH)+1%>月<%=daily.get(Calendar.DATE) %>日）の</h4>
   				<a href="<c:url value='/daily' />">学習時間を記録する</a>
   			</div>
 

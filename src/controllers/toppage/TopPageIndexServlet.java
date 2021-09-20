@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.CalendarLogic;
-import models.Calendars;
 import models.Study;
 import models.User;
 import utils.DBUtil;
@@ -40,14 +39,10 @@ public class TopPageIndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		EntityManager em = DBUtil.createEntityManager();
-
 		CalendarLogic logic = new CalendarLogic();
-
-
 
 		String s_year = request.getParameter("year");
 		String s_month = request.getParameter("month");
-
 
 		int year;
 		int month;
@@ -60,10 +55,7 @@ public class TopPageIndexServlet extends HttpServlet {
 		    month = Integer.parseInt(s_month);
 		}
 
-
-
-
-
+		/*
 		Calendars cls = null;
 
 		if(s_year != null && s_month != null) {
@@ -85,21 +77,19 @@ public class TopPageIndexServlet extends HttpServlet {
 		}
 		//リクエストスコープに格納
 		request.setAttribute("cls", cls);
+		*/
 
+		//cls = logic.createCalendars();
 
-
-		cls = logic.createCalendars();
-		// 学習時間を記録する（日にちまで表示）
-
-		// パターン①
+		// ○○年○月○日の学習時間を記録するのリンクのところの、日付表示で使用する
 		Calendar cl = Calendar.getInstance();
 		request.setAttribute("daily", cl);
 
-		// もう一つのパターン  パターン②
-		request.setAttribute("cls_r", cls);
-
-
-
+		// カレンダーの列数を求める際に使用する変数を用意しておく
+		//Calendar calen = Calendar.getInstance();
+		//int monthEnd = calen.getActualMaximum(Calendar.DAY_OF_MONTH);
+		//calen.set(Calendar.DATE, monthEnd);
+		//int after = 7-calen.get(Calendar.DAY_OF_WEEK);
 
 		ArrayList<Calendar> dates;
 
@@ -114,11 +104,11 @@ public class TopPageIndexServlet extends HttpServlet {
 				year++;
 			}
 			//年と月のクエリパラメーターが来ている場合にはその年月でカレンダーを生成する
-			cls = logic.createCalendars(year,month);
+			//cls = logic.createCalendars(year,month);
 			dates = logic.generateDays(year, month);
 		}else {
 			//クエリパラメータが来ていないときは実行日時のカレンダーを生成する。
-			cls = logic.createCalendars();
+			//cls = logic.createCalendars();
 
 			dates = logic.generateDays(year, month);
 		}
@@ -127,14 +117,28 @@ public class TopPageIndexServlet extends HttpServlet {
 		// 今月を指定
 		// Date の二次元配列を生成する
 
-		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;
-		int monthEnd = dates.get(0).getActualMaximum(Calendar.DATE);
+		/*
+		//その月の1日が何曜日かを調べる為に日付を1日にする
+		cal.set(Calendar.DATE, 1);                         // → この時点から、その月の一日のCalendarsを操作することになる
+		//カレンダーの最初の空白の数
+		int before = cal.get(Calendar.DAY_OF_WEEK)-1;
+		//カレンダーの日付の数
+		int daysCount = cal.getActualMaximum(Calendar.DAY_OF_MONTH);  // ここまで、その月の一日の操作
 
 
+		//その月の最後の日が何曜日かを調べるために日付を最終日にする
+		cal.set(Calendar.DATE, daysCount);                           // → この時点から、その月の最終日のCalendarsを操作することになる
+		//最後の日後の空白の数
+		int after = 7-cal.get(Calendar.DAY_OF_WEEK);
+		//すべての要素数
+		int total = before+daysCount+after;
+		//その要素数を幅7個の配列に入れていった場合何行になるか
+		int rows = total/7;
+		*/
 
-
-
-
+		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;  // int before に同じ
+		int monthEnd = dates.get(0).getActualMaximum(Calendar.DATE);  // int daysCount に同じ
+		//int total = weekStart + monthEnd + after;
 
 
 		// 日曜日から開始するため、先頭にnullを挿入
@@ -143,23 +147,16 @@ public class TopPageIndexServlet extends HttpServlet {
 		}
 
 		// dates.size() に応じて残りのカレンダーの null を埋める
-		int calendarRows = (weekStart + monthEnd) / 7 + 1;
+		int calendarRows = (weekStart + monthEnd) / 7 ;  // ← 本来 + 1がある
 		for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
 			dates.add(i, null);
 		}
 
-		/*
-		// 前月を表示
-		ArrayList<Calendar> last_month = logic.generateDays(year-1,month-1);
+		//for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
+			//dates.add(i, null);
+		//}
 
-		for (int i = 0; i < weekStart; i++) {
-			last_month.add(i, null);
-		}
 
-		for (int j = last_month.size(); j < 7 * calendarRows; j++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
-				last_month.add(j, null);
-		}
-		*/
 
 		User login_user = (User) request.getSession().getAttribute("login_user");
 
