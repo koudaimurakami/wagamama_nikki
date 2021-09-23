@@ -2,8 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/app.jsp">
 	 <c:param name="content">
-	 	<h3>${user.name}さんの学習時間</h3>
 
-	 	<h1>合計 : ${tsh}時間</h1>
+	 	<div id="my_page">
+	 		<h1>${user.name}さんの学習時間</h1>
+
+	 		<p>合計 : ${tsh}時間</p>
+	 	</div>
+
 	 </c:param>
 </c:import>

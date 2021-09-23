@@ -8,6 +8,8 @@
             <c:import url="_form.jsp" />
         </form>
 
-        <p><a href="<c:url value='/index.html' />">トップページに戻る</a></p>
+        <div id="re_toppage">
+        	 <p><a href="<c:url value='/index.html' />">トップページに戻る</a></p>
+        </div>
     </c:param>
 </c:import>

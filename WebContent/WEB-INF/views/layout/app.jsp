@@ -5,32 +5,39 @@
     <head>
         <meta charset="UTF-8">
         <title>わがまま日記</title>
-        <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
-        <link rel="stylesheet" href="<c:url value='/css/style.css' />">
+        <link rel="stylesheet" href="<c:url value='/css/reset.css' />" media="all">
+        <link rel="stylesheet" href="<c:url value='/css/style.css' />" media="all">
     </head>
     <body>
     	 <div id="wrapper">
+
             <div id="header">
+
             	<div id="header_menu">
-            		 <h1><a href="<c:url value='/' />">わがまま日記</a></h1>&nbsp;&nbsp;&nbsp;
+            		 <h1>わがまま日記</h1>&nbsp;&nbsp;&nbsp;
             		 <c:if test="${sessionScope.login_user != null}">
-                       <a href="<c:url value='/index.html' />">トップページ</a>&nbsp;
+                     	<a href="<c:url value='/index.html' />">トップページ</a>&nbsp;
                         <a href="<c:url value='/mypage' />">マイページ</a>&nbsp;
-                    </c:if>
-            	</div>
-            	 <c:if test="${sessionScope.login_user != null}">
-                    <div id="user_name">
-                        <c:out value="${sessionScope.login_user.name}" />&nbsp;さん&nbsp;&nbsp;&nbsp;
-                        <a href="<c:url value='/logout' />">ログアウト</a>
-                    </div>
-                </c:if>
-            </div>
-            <div id="content">
-                ${param.content}
-            </div>
-            <div id="footer">
-                by Kodai Murakami.
-            </div>
-        </div>
-    </body>
-</html>
+                 	 </c:if>
+                 </div>
+
+                 <c:if test="${sessionScope.login_user != null}">
+                 <div id="user_name">
+                 	<c:out value="${sessionScope.login_user.name}" />&nbsp;さん&nbsp;&nbsp;&nbsp;
+                 	<a href="<c:url value='/logout' />">ログアウト</a>
+                 </div>
+                 </c:if>
+
+	         </div>
+
+	         <div id="content">
+	                ${param.content}
+	            </div>
+
+	         <div id="footer">
+	                by Kodai Murakami.
+	         </div>
+
+	       </div>
+	    </body>
+	</html>

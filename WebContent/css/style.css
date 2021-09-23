@@ -7,31 +7,88 @@ body {
 
 #header {
     width: 100%;
-    height: 70px;
-    background-color: #333333;
+    height: 120px;
+    background-color: #808000;
 }
 
-#content {
-    width: 94%;
-    margin-top: 15px;
-    padding-left: 3%;
-}
-
-h1 {
+#header h1 {
     width: 94%;
     padding-top: 17px;
     padding-left: 3%;
-    font-size: 24px;
+    font-size: 40px;
+    font-weight: bold;
     color: #eeeeee;
     display: inline;
 }
 
-table#employee_list th {
+#header_menu {
+    width: 57%;
+    padding-top: 32px;
+    padding-left: 3%;
+    display: inline-block;
+}
+
+#header a {
+    color: #000;
+    text-decoration: underline;
+}
+
+#user_name {
+    color: #cccccc;
+    width: 36%;
+    padding-right: 3%;
+    text-align: right;
+    display: inline-block;
+}
+
+
+#content {
+    width: auto;
+    height: auto;
+    padding-left: 3%;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 150px;
+    background-color:aliceblue;
+}
+
+#container a {
+	text-decoration: underline;
+}
+
+#today_record a {
+	text-decoration: underline;
+	margin-top: 20px;
+}
+
+#my_page {
+	text-align: center;
+	padding-top: 160px;
+	padding-bottom: 160px;
+}
+
+#my_page h1{
+	font-size: 25px;
+}
+
+#my_page p {
+	font-size: 50px;
+}
+
+#record_table th {
+	text-align: center;
+}
+
+#re_toppage a {
+	text-decoration: underline;
+}
+
+table#calendar th {
     width: 30%;
     padding: 10px 2%;
 }
 
-table#employee_list td {
+table#calendar td {
     width: 29%;
     padding: 10px 2%;
 }
@@ -70,6 +127,7 @@ a {
 
 table, tr, th, td {
     border: 1px solid #cccccc;
+    border-color: #006600;
 }
 
 table {
@@ -93,7 +151,12 @@ buttom {
 }
 
 #footer {
+	height: auto;
     text-align: center;
+    padding-top: 37px;
+    padding-bottom: 38px;
+    background-color: #808080;
+    font-size:20px;
 }
 
 #flush_success {
@@ -116,24 +179,11 @@ buttom {
     background-color: #f8d8da;
 }
 
-#header_menu {
-    width: 57%;
-    padding-top: 17px;
-    padding-left: 3%;
-    display: inline-block;
-}
 
-#employee_name {
-    color: #cccccc;
-    width: 36%;
-    padding-right: 3%;
-    text-align: right;
-    display: inline-block;
-}
 
-#header a {
-    color: #eeeeee;
-}
+
+
+
 
 h1 a {
     color: #eeeeee;

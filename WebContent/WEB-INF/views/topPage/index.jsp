@@ -23,11 +23,14 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 
 
         	<div id="container">
-			    <h3><%=today.get(Calendar.YEAR) %>年<%=today.get(Calendar.MONTH)+1 %>月のカレンダー</h3>
 			    <p>
 					<a href="?year=<%=today.get(Calendar.YEAR)%>&month=<%=today.get(Calendar.MONTH)+1-1%>">前月</a>
 			    	<a href="?year=<%=today.get(Calendar.YEAR)%>&month=<%=today.get(Calendar.MONTH)+1+1%>">翌月</a>
 			    </p>
+
+			    <h3><%=today.get(Calendar.YEAR) %>年<%=today.get(Calendar.MONTH)+1 %>月のカレンダー</h3>
+
+			</div>
 
 
 			    <%-- <table>
@@ -59,14 +62,13 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 
 
 
-  				<h4>今日（<%=daily.get(Calendar.YEAR) %>年<%=daily.get(Calendar.MONTH)+1%>月<%=daily.get(Calendar.DATE) %>日）の</h4>
-  				<a href="<c:url value='/daily' />">学習時間を記録する</a>
-  			</div>
 
 
 
 
-  			<table>
+
+
+  			<table id="calendar">
   				<tr>
 				<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
   				</tr>
@@ -96,6 +98,14 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
   				</tr>
 
   			</table>
+  			<br>
+
+
+  			<h4 id="today_record">
+  				今日（<%=daily.get(Calendar.YEAR) %>年<%=daily.get(Calendar.MONTH)+1%>月<%=daily.get(Calendar.DATE) %>日）の
+  				<a href="<c:url value='/daily' />">学習時間を記録する</a>
+  			</h4>
+
 
 
     </c:param>
