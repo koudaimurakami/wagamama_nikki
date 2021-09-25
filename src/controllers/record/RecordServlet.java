@@ -37,7 +37,9 @@ public class RecordServlet extends HttpServlet {
 		Study s = new Study();
 
 		// 記録の対象となるユーザーをセット
-		s.setUser((User)request.getSession().getAttribute("login_user"));
+		// sendRedirect の時の判定に使用したいので、ログインユーザーの変数を作成しておく
+		User login_user = ((User)request.getSession().getAttribute("login_user"));
+		s.setUser(login_user);
 
 		// 学習した日付を studyクラスの study_date にセット
 		Date study_date = new Date(System.currentTimeMillis());
@@ -83,7 +85,12 @@ public class RecordServlet extends HttpServlet {
 		// 学習時間を記録した日付を、TopPageの index.jspに渡す
 		request.getSession().setAttribute("record_day", study_date);
 
-		response.sendRedirect(request.getContextPath() + "/index.html" );
+		if (login_user != null) {
+			response.sendRedirect(request.getContextPath() + "/index.html" );
+		} else {
+			response.sendRedirect(request.getContextPath() + "/login");    // ログイン状態が切れていたら、ログイン画面に戻る
+		}
+
 	}
 
 }

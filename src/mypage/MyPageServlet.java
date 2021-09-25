@@ -45,8 +45,14 @@ public class MyPageServlet extends HttpServlet {
 		request.setAttribute("user", login_user);
 		request.setAttribute("tsh", total_study_hour);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/myPage/index.jsp");
-		rd.forward(request, response);
+		if (login_user != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/myPage/index.jsp");
+			rd.forward(request, response);
+		} else {
+			 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");    // ログイン状態が切れていたら、ログイン画面に戻る
+	            rd.forward(request, response);
+		}
+
 	}
 
 }

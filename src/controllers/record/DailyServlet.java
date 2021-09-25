@@ -40,8 +40,16 @@ public class DailyServlet extends HttpServlet {
 
 		request.setAttribute("study", s);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/record/record.jsp");
-		rd.forward(request, response);
+		if (login_user != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/record/record.jsp");
+			rd.forward(request, response);
+		} else {
+			 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");    // ログイン状態が切れていたらログイン画面に戻る
+	         rd.forward(request, response);
+		}
+
+
+
 	}
 
 }
