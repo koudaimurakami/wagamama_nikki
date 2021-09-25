@@ -83,6 +83,10 @@ body {
 	text-decoration: underline;
 }
 
+#sign_up a {
+	text-decoration: underline;
+}
+
 table#calendar th {
     width: 30%;
     padding: 10px 2%;

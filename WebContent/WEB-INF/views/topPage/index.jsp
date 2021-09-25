@@ -19,7 +19,7 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>今日も勉強おつかれさまでした！</h2>
+        <h2>今日も勉強おつかれさまでした！！！！！</h2>
 
 
         	<div id="container">
@@ -73,12 +73,14 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
 				<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
   				</tr>
 
-  				<tr>
   				<%
   				SimpleDateFormat sdf = new SimpleDateFormat("d");
   				SimpleDateFormat s_d_f = new SimpleDateFormat("yyyyMMdd");
   				%>
   				<% for (int i = 0; i < dates.size(); i++) { %>
+  				<%if (i % 7 == 0) { %>
+  				<tr>
+  				<% } %>
   				<td>
   					<% if (dates.get(i) != null) { %>
   						<%=sdf.format(dates.get(i).getTime()) %>
@@ -92,10 +94,8 @@ List<Study> study_date =  (List<Study>)request.getAttribute("study_date"); %>
   				</td>
   				<% if ((i+1) % 7 == 0) { %>
   				</tr>
-  				<tr>
   				<% } %>
   				<% } %>
-  				</tr>
 
   			</table>
   			<br>

@@ -91,7 +91,7 @@ public class TopPageIndexServlet extends HttpServlet {
 		//calen.set(Calendar.DATE, monthEnd);
 		//int after = 7-calen.get(Calendar.DAY_OF_WEEK);
 
-		ArrayList<Calendar> dates;
+		ArrayList<Calendar> date_table;
 
 		if(s_year != null && s_month != null) {
 
@@ -105,13 +105,9 @@ public class TopPageIndexServlet extends HttpServlet {
 			}
 			//年と月のクエリパラメーターが来ている場合にはその年月でカレンダーを生成する
 			//cls = logic.createCalendars(year,month);
-			dates = logic.generateDays(year, month);
-		}else {
-			//クエリパラメータが来ていないときは実行日時のカレンダーを生成する。
-			//cls = logic.createCalendars();
-
-			dates = logic.generateDays(year, month);
 		}
+		date_table = logic.generateDays(year, month);
+
 
 
 		// 今月を指定
@@ -136,21 +132,25 @@ public class TopPageIndexServlet extends HttpServlet {
 		int rows = total/7;
 		*/
 
-		int weekStart = dates.get(0).get(Calendar.DAY_OF_WEEK)-1;  // int before に同じ
-		int monthEnd = dates.get(0).getActualMaximum(Calendar.DATE);  // int daysCount に同じ
+		int weekStart = date_table.get(0).get(Calendar.DAY_OF_WEEK)-1;  // int before に同じ
+		int monthEnd = date_table.get(0).getActualMaximum(Calendar.DATE);  // int daysCount に同じ
 		//int total = weekStart + monthEnd + after;
 
 
 		// 日曜日から開始するため、先頭にnullを挿入
 		for (int i = 0; i < weekStart; i++) {
-			dates.add(i, null);
+			date_table.add(i, null);
 		}
 
 		// dates.size() に応じて残りのカレンダーの null を埋める
-		int calendarRows = (weekStart + monthEnd) / 7 ;  // ← 本来 + 1がある
-		for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
-			dates.add(i, null);
+		int calendarRows = (int) Math.ceil((double)(weekStart + monthEnd) / 7) ;  // ← 本来 + 1がある
+		System.out.println(calendarRows + "カレンダーローズ");
+		int size = date_table.size();
+		for (int i = size; i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
+			date_table.add(null);
 		}
+
+		System.out.println(date_table.size());
 
 		//for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
 			//dates.add(i, null);
@@ -185,10 +185,10 @@ public class TopPageIndexServlet extends HttpServlet {
 
 
 
-		Calendar today = dates.get(weekStart);
+		Calendar today = date_table.get(weekStart);
 		request.setAttribute("today",today);
 
-		request.setAttribute("dates", dates);
+		request.setAttribute("dates", date_table);
 
 
 

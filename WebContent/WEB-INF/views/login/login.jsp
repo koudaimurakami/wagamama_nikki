@@ -25,5 +25,11 @@
             <input type="hidden" name="_token" value="${_token}" />
             <button type="submit">ログイン</button>
         </form>
+        <br><br><br><br><br><br><br>
+
+        <h4 id="sign_up">
+        	↓初めての方はこちら↓<br>
+        	<a href="<c:url value='/users/new' />">ユーザー登録してはじめる</a>
+        </h4>
     </c:param>
 </c:import>
