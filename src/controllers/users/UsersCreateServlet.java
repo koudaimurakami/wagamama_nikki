@@ -39,6 +39,7 @@ public class UsersCreateServlet extends HttpServlet {
 	        if(_token != null && _token.equals(request.getSession().getId())) {
 	            EntityManager em = DBUtil.createEntityManager();
 
+	            // Userのインスタンスを生成
 	            User u = new User();
 
 	            u.setLogin_id(request.getParameter("login_id"));
@@ -63,12 +64,13 @@ public class UsersCreateServlet extends HttpServlet {
 	                request.setAttribute("user", u);
 	                request.setAttribute("errors", errors);
 
+	                // エラーになった場合は、再度ユーザー登録画面に戻る ← 名前、ログインID、パスワード すべて必須入力事項なので、どれか一つでも入力されなかったらエラーとなる
 	                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
 	                rd.forward(request, response);
 	            } else {
 	                em.getTransaction().begin();
-	                em.persist(u);
-	                em.getTransaction().commit();
+	                em.persist(u);                   // データベースに保存
+	                em.getTransaction().commit();    // データの新規登録を確定させる
 	                request.getSession().setAttribute("flush", "登録が完了しました。");
 	                em.close();
 

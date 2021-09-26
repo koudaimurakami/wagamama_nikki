@@ -81,7 +81,7 @@ public class UsersUpdateServlet extends HttpServlet {
 	                rd.forward(request, response);
 	            } else {
 	                em.getTransaction().begin();
-	                em.getTransaction().commit();
+	                em.getTransaction().commit();    // データの更新を確定させる
 	                em.close();
 	                request.getSession().setAttribute("flush", "更新が完了しました。");
 

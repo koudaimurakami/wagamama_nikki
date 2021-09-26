@@ -35,7 +35,7 @@
 	            </div>
 
 	         <div id="footer">
-	                by Kodai Murakami.
+	                ©2021 - kodai murakami.
 	         </div>
 
 	       </div>

@@ -40,6 +40,7 @@ public class DailyServlet extends HttpServlet {
 
 		request.setAttribute("study", s);
 
+		// ビューとなるjspを指定して表示する
 		if (login_user != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/record/record.jsp");
 			rd.forward(request, response);

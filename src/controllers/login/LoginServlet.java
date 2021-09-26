@@ -87,13 +87,14 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("hasError", true);
             request.setAttribute("login_id", login_id);
 
+            // ビューとなるjspを指定して表示する
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
             rd.forward(request, response);
         } else {
             // 認証できたらログイン状態にしてトップページへリダイレクト
             request.getSession().setAttribute("login_user", u);
 
-            request.getSession().setAttribute("flush", "ログインしました。");
+            //request.getSession().setAttribute("flush", "ログインしました。");
             response.sendRedirect(request.getContextPath() + "/");
         }
 	}

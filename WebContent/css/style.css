@@ -8,7 +8,7 @@ body {
 #header {
     width: 100%;
     height: 120px;
-    background-color: #808000;
+    background-color: #999966;
 }
 
 #header h1 {
@@ -34,7 +34,7 @@ body {
 }
 
 #user_name {
-    color: #cccccc;
+    color: #000000;
     width: 36%;
     padding-right: 3%;
     text-align: right;
@@ -44,12 +44,12 @@ body {
 
 #content {
     width: auto;
-    height: auto;
+    height: 476px;
     padding-left: 3%;
     padding-top: 30px;
     padding-right: 30px;
     padding-bottom: 150px;
-    background-color:aliceblue;
+    background-color:#FFFFFF;
 }
 
 #container a {
@@ -71,12 +71,37 @@ body {
 	font-size: 25px;
 }
 
-#my_page p {
+.total_study_hour {
+	margin: -3em auto;
+	width: 30%;
+	background-color: aliceblue;
+	border: 1px solid #ccc;
 	font-size: 50px;
+	text-align: center;
+	border: 2px solid #ccc;
+	border-radius: 8px;
 }
+
 
 #record_table th {
 	text-align: center;
+	background-color: #EEEEEE;
+}
+
+#yellow {
+	background-color: #FFFFCC;
+}
+
+#red {
+	background-color: #FF9999;
+}
+
+#blue {
+	background-color: #CCFFFF;
+}
+
+#green {
+	background-color: #CEF9DC;
 }
 
 #re_toppage a {
@@ -87,9 +112,14 @@ body {
 	text-decoration: underline;
 }
 
+
 table#calendar th {
     width: 30%;
     padding: 10px 2%;
+}
+
+#week_day th{
+	background-color: #EEEEEE;
 }
 
 table#calendar td {
@@ -97,26 +127,9 @@ table#calendar td {
     padding: 10px 2%;
 }
 
-tr.row1 {
-        background-color: #f2f2f2;
-}
-tr.row0 {
-        background-color: #ffffff;
-}
-
-select {
-    height: 30px;
-}
-
-
 h2 {
     font-size: 36px;
     margin-bottom: 15px;
-}
-
-li {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 p {
@@ -125,14 +138,51 @@ p {
 }
 
 a {
-    text-decoration: none;
     color: #24738e;
 }
 
 table, tr, th, td {
     border: 1px solid #cccccc;
-    border-color: #006600;
+    border-color: #000000;
 }
+
+#right_side {
+	float: right;
+	margin-top: 100px;
+	margin-right: 350px;
+}
+
+.box {
+	margin: 2em auto;
+	padding: 1em;
+	background-color: #EEFFFF;
+	color: #666;
+	border: 1px solid #ccc;
+	box-shadow: -2px 5px 5px #e8d3c7;
+	border-radius: 20px;
+}
+
+#left_side {
+	float: left;
+}
+
+dic.clear {
+	clear: ;
+}
+
+#introduction_title {
+	text-align: center;
+}
+
+
+#introduction_content {
+	text-align: center;
+}
+
+#introduction_content p {
+	text-decoration: underline;
+}
+
 
 table {
     width: 100%;
@@ -159,7 +209,7 @@ buttom {
     text-align: center;
     padding-top: 37px;
     padding-bottom: 38px;
-    background-color: #808080;
+    background-color: #F5F5DC;
     font-size:20px;
 }
 
@@ -183,35 +233,8 @@ buttom {
     background-color: #f8d8da;
 }
 
-
-
-
-
-
-
 h1 a {
     color: #eeeeee;
-}
-
-table#report_list th {
-    font-weight: bold;
-    padding: 10px 2%;
-}
-
-table#report_list .report_name {
-    width: 20%;
-    padding: 10px 2%;
-}
-table#report_list .report_date {
-    width: 20%;
-}
-
-table#report_list .report_title {
-    width: 37%;
-}
-
-table#report_list .report_action {
-    width: 13%;
 }
 
 pre {

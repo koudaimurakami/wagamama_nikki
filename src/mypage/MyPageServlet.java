@@ -45,6 +45,7 @@ public class MyPageServlet extends HttpServlet {
 		request.setAttribute("user", login_user);
 		request.setAttribute("tsh", total_study_hour);
 
+		// ビューとなるjspを指定して表示する
 		if (login_user != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/myPage/index.jsp");
 			rd.forward(request, response);

@@ -15,10 +15,12 @@ import javax.persistence.Table;
 
 @Table(name = "study_hours")
 @NamedQueries({
+	// マイページにて、学習時間の合計を算出するための計算式
 	@NamedQuery(
 			name = "sumStudyHour",
 			query = "SELECT SUM(s.study_hour) FROM Study AS s WHERE s.user = :user"
 			),
+	// その月の中で、学習記録がある日を集める
 	@NamedQuery(
 			name = "StudyLog",
 			query = "SELECT s FROM Study AS s WHERE s.user = :user AND s.study_date BETWEEN :this_month_1 AND :this_month_last"
@@ -75,7 +77,11 @@ public class Study {
 		this.study_date = study_date;
 	}
 
-public String getStudyMark() {
+
+	/*
+	 *  学習時間に応じた印を取得するための関数を作成
+	 */
+	public String getStudyMark() {
 
 	if (this.study_hour >= 8) {
 		return "☆";
@@ -86,7 +92,8 @@ public String getStudyMark() {
 	} else {
 		return "♪";
 	}
-}
-
 
 	}
+
+
+}

@@ -34,14 +34,21 @@ public class RecordServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = DBUtil.createEntityManager();
 
+		// Studyのインスタンスを生成
 		Study s = new Study();
 
-		// 記録の対象となるユーザーをセット
-		// sendRedirect の時の判定に使用したいので、ログインユーザーの変数を作成しておく
+		/*
+		 * 記録の対象となるユーザーをセット
+		 * sendRedirect の時の判定に使用したいので、ログインユーザーの変数を作成しておく
+		 */
 		User login_user = ((User)request.getSession().getAttribute("login_user"));
 		s.setUser(login_user);
 
-		// 学習した日付を studyクラスの study_date にセット
+
+
+		/*
+		 * 学習した日付を studyクラスの study_date にセット
+		 */
 		Date study_date = new Date(System.currentTimeMillis());
         String sd_str = request.getParameter("study_date");
         if(sd_str != null && !sd_str.equals("")) {
@@ -50,35 +57,18 @@ public class RecordServlet extends HttpServlet {
         s.setStudy_date(study_date);
 
 
-		// 選択された学習時間をセット
+
+        /*
+         * 選択された学習時間をセット
+         */
 		String stu_hour = request.getParameter("stu_hour");  // パラメータは文字でしか取得できないから、String型で取得
 		s.setStudy_hour(Integer.parseInt(stu_hour));  // int型のStudy_hourにセットできるように、パラメータの中身のint型の要素を取りだす
 
-		// 学習時間の印を変数に入れる
-		String hoshi = "☆";
-		String nijuu_maru = "◎";
-		String maru = "○";
-		String onpu = "♪";
 
-
-		if ((stu_hour.equals("10")) || (stu_hour.equals("9")) || (stu_hour.equals("8"))) {
-			request.getSession().setAttribute("mark", hoshi);
-		} else if ((stu_hour.equals("7")) || (stu_hour.equals("6")) || (stu_hour.equals("5")) || (stu_hour.equals("4"))) {
-			request.getSession().setAttribute("mark", nijuu_maru);
-		} else if ((stu_hour.equals("3")) || (stu_hour.equals("2")) || (stu_hour.equals("1"))) {
-			request.getSession().setAttribute("mark", maru);
-		} else if (stu_hour.equals("0")) {
-			request.getSession().setAttribute("mark", onpu);
-		}
-
-		// 学習時間を記録した日付をセット
-		//Calendar real_time = Calendar.getInstance();
-		//SimpleDateFormat now = new SimpleDateFormat("yyyy/MM/dd");
-		//String study_date = now.format(real_time.getTime());
 
 		em.getTransaction().begin();
-		em.persist(s);
-		em.getTransaction().commit();
+		em.persist(s);                   // データベースに保存
+		em.getTransaction().commit();    // データの新規登録を確定させる
 		em.close();
 		request.getSession().setAttribute("flush", "記録が完了しました。");
 

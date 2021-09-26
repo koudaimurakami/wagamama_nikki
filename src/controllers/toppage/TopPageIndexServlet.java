@@ -41,59 +41,30 @@ public class TopPageIndexServlet extends HttpServlet {
 		EntityManager em = DBUtil.createEntityManager();
 		CalendarLogic logic = new CalendarLogic();
 
-		String s_year = request.getParameter("year");
-		String s_month = request.getParameter("month");
+		// リクエストパラメータを取得する
+		String str_year = request.getParameter("year");
+		String str_month = request.getParameter("month");
 
 		int year;
 		int month;
-		if (s_year == null || s_month == null) {
+		if (str_year == null || str_month == null) {
 		    Calendar calend = Calendar.getInstance();
 		    year = calend.get(Calendar.YEAR);
 		    month = calend.get(Calendar.MONTH)+1;
 		} else {
-		    year = Integer.parseInt(s_year);
-		    month = Integer.parseInt(s_month);
+		    year = Integer.parseInt(str_year);
+		    month = Integer.parseInt(str_month);
 		}
+
+
+
 
 		/*
-		Calendars cls = null;
-
-		if(s_year != null && s_month != null) {
-
-
-			if(month == 0) {
-				month = 12;
-				year--;
-			}
-			if(month == 13) {
-				month = 1;
-				year++;
-			}
-			//年と月のクエリパラメーターが来ている場合にはその年月でカレンダーを生成する
-			cls = logic.createCalendars(year,month);
-		}else {
-			//クエリパラメータが来ていないときは実行日時のカレンダーを生成する。
-			cls = logic.createCalendars();
-		}
-		//リクエストスコープに格納
-		request.setAttribute("cls", cls);
-		*/
-
-		//cls = logic.createCalendars();
-
-		// ○○年○月○日の学習時間を記録するのリンクのところの、日付表示で使用する
-		Calendar cl = Calendar.getInstance();
-		request.setAttribute("daily", cl);
-
-		// カレンダーの列数を求める際に使用する変数を用意しておく
-		//Calendar calen = Calendar.getInstance();
-		//int monthEnd = calen.getActualMaximum(Calendar.DAY_OF_MONTH);
-		//calen.set(Calendar.DATE, monthEnd);
-		//int after = 7-calen.get(Calendar.DAY_OF_WEEK);
-
+		 *  日付のデータを保持する ArrayListを作成
+		 */
 		ArrayList<Calendar> date_table;
 
-		if(s_year != null && s_month != null) {
+		if(str_year != null && str_month != null) {
 
 			if(month == 0) {
 				month = 12;
@@ -103,37 +74,13 @@ public class TopPageIndexServlet extends HttpServlet {
 				month = 1;
 				year++;
 			}
-			//年と月のクエリパラメーターが来ている場合にはその年月でカレンダーを生成する
-			//cls = logic.createCalendars(year,month);
 		}
+		// 年と月のパラメータが来ている場合には、その年月のカレンダーを生成する
 		date_table = logic.generateDays(year, month);
 
 
-
-		// 今月を指定
-		// Date の二次元配列を生成する
-
-		/*
-		//その月の1日が何曜日かを調べる為に日付を1日にする
-		cal.set(Calendar.DATE, 1);                         // → この時点から、その月の一日のCalendarsを操作することになる
-		//カレンダーの最初の空白の数
-		int before = cal.get(Calendar.DAY_OF_WEEK)-1;
-		//カレンダーの日付の数
-		int daysCount = cal.getActualMaximum(Calendar.DAY_OF_MONTH);  // ここまで、その月の一日の操作
-
-
-		//その月の最後の日が何曜日かを調べるために日付を最終日にする
-		cal.set(Calendar.DATE, daysCount);                           // → この時点から、その月の最終日のCalendarsを操作することになる
-		//最後の日後の空白の数
-		int after = 7-cal.get(Calendar.DAY_OF_WEEK);
-		//すべての要素数
-		int total = before+daysCount+after;
-		//その要素数を幅7個の配列に入れていった場合何行になるか
-		int rows = total/7;
-		*/
-
-		int weekStart = date_table.get(0).get(Calendar.DAY_OF_WEEK)-1;  // int before に同じ
-		int monthEnd = date_table.get(0).getActualMaximum(Calendar.DATE);  // int daysCount に同じ
+		int weekStart = date_table.get(0).get(Calendar.DAY_OF_WEEK)-1;  // その月の一日が何曜日か
+		int monthDaysCount = date_table.get(0).getActualMaximum(Calendar.DATE);  // その月の日数を取得
 		//int total = weekStart + monthEnd + after;
 
 
@@ -142,38 +89,38 @@ public class TopPageIndexServlet extends HttpServlet {
 			date_table.add(i, null);
 		}
 
-		// dates.size() に応じて残りのカレンダーの null を埋める
-		int calendarRows = (int) Math.ceil((double)(weekStart + monthEnd) / 7) ;  // ← 本来 + 1がある
+		// date_table.size() に応じて残りのカレンダーの null を埋める
+		int calendarRows = (int) Math.ceil((double)(weekStart + monthDaysCount) / 7) ;
 		System.out.println(calendarRows + "カレンダーローズ");
 		int size = date_table.size();
 		for (int i = size; i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
 			date_table.add(null);
 		}
 
-		System.out.println(date_table.size());
-
-		//for (int i = dates.size(); i < 7 * calendarRows; i++) {    // ←月の日数分より大きく、残りの空白を満たしていない範囲
-			//dates.add(i, null);
-		//}
+		request.setAttribute("date_table", date_table);
 
 
+
+
+		/*
+		 *  ↓ Studyクラスの select文のリストを作成  ↓
+		 */
 
 		User login_user = (User) request.getSession().getAttribute("login_user");
 
+
+		// 今月の一日を保持する変数を作成
 		Calendar dis_month_1 = Calendar.getInstance();
 		dis_month_1.clear();
 		dis_month_1.set(year, month-1, 1);
 
-		System.out.println(dis_month_1 + "今月の一日");
-
+		// 今月の日数を保持する変数を作成
 		int dis_month_count = dis_month_1.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(dis_month_count + "今月の日数");
 
+		// 今月の最終日を保持する変数を作成
 		Calendar dis_month_last = Calendar.getInstance();
 		dis_month_last.clear();
 		dis_month_last.set(year, month-1, dis_month_count);
-
-		System.out.println(dis_month_last + "今月の最終日");
 
 		List<Study> study_date = em.createNamedQuery("StudyLog", Study.class)
 									.setParameter("user", login_user)
@@ -185,13 +132,26 @@ public class TopPageIndexServlet extends HttpServlet {
 
 
 
-		Calendar today = date_table.get(weekStart);
-		request.setAttribute("today",today);
 
-		request.setAttribute("dates", date_table);
+		/*
+		 *  「○年○月のカレンダー」という表記を表示するための変数を作成
+		 */
+		Calendar toppageCalendar = date_table.get(weekStart);
+		request.setAttribute("toppageCalendar",toppageCalendar);
 
 
 
+		/*
+		 *  ○○年○月○日の学習時間を記録するのリンクのところの、日付表示で使用する
+		 */
+		Calendar today = Calendar.getInstance();
+		request.setAttribute("today", today);
+
+
+
+
+
+		// ビューとなるjspを指定して表示する
 		if (login_user != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
 			rd.forward(request, response);

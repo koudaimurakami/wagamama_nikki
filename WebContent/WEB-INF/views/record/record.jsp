@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
-        <h2>学習時間  記録ページ</h2>
+        <h3>学習時間  記録ページ</h3>
 
         <form method="POST" action="<c:url value='/record' />">
             <c:import url="_form.jsp" />
