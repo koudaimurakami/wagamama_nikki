@@ -12,3 +12,6 @@ HTML(JSP)
 CSS  
 DB: MySQL  
 フレームワーク: Hibernate
+# 機能  
+ログイン機能・ログアウト機能  
+カレンダー機能
