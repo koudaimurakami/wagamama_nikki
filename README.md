@@ -9,7 +9,7 @@
 JavaSE-1.8  
 HTML(JSP)  
 CSS  
-DB: MySQL 5.7  
+DB: MySQL 5.1.45  
 フレームワーク: Hibernate Core 5.2.13.Final  
 Apache Tomcat 8.0.43  
 # 機能  
