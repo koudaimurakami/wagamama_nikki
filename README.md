@@ -18,4 +18,7 @@ Apache Tomcat 8.0.43
 # 学習記録の流れ  
 例えば、10月2日に、5時間と記録するとします。  
 （当日の日付の欄には * 印を表示させています）  
-![77c5fa13a0356f9bd4bae8636d4c8ce3](https://user-images.githubusercontent.com/85561543/135714796-7beff11d-1fb4-46a8-8ef8-937514f60676.gif)
+![77c5fa13a0356f9bd4bae8636d4c8ce3](https://user-images.githubusercontent.com/85561543/135714796-7beff11d-1fb4-46a8-8ef8-937514f60676.gif)  
+  
+すると、学習時間に対応した印がその日の欄に表示されます。
+（5時間であれば、○ が入ります）
