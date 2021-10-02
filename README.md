@@ -21,7 +21,8 @@ Hibernate 5.2.13.Final
 ### DB  
 MySQL 5.7.34  
 ### バージョン管理  
-Git, GitHub  
+Git  
+GitHub  
 ### エディター  
 eclipse  
 # 機能  
