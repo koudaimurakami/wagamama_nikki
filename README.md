@@ -14,4 +14,6 @@ DB: MySQL 5.1.45
 Apache Tomcat 8.0.43  
 # 機能  
 ログイン機能・ログアウト機能  
-カレンダー機能
+カレンダー機能  
+# 学習記録の流れ  
+![77c5fa13a0356f9bd4bae8636d4c8ce3](https://user-images.githubusercontent.com/85561543/135714796-7beff11d-1fb4-46a8-8ef8-937514f60676.gif)
