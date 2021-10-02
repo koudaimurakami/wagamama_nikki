@@ -25,4 +25,7 @@ Apache Tomcat 8.0.43
   
 ## 2.記録完了  
 すると、学習時間に対応した印がその日の欄に表示されます。
-（5時間であれば、◎ が入ります）
+（5時間であれば、◎ が入ります）  
+![記録完了後](https://user-images.githubusercontent.com/85561543/135717535-cddf5d4f-14e7-4eee-9d32-1b6bc70c4ff8.png)
+
+
