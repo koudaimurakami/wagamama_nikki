@@ -19,7 +19,7 @@ JavaEE
 Tomcat8  
 Hibernate 5.2.13.Final  
 ### DB  
-MySQL  
+MySQL 5.7.34  
 ### バージョン管理  
 Git, GitHub  
 ### エディター  
