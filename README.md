@@ -44,6 +44,6 @@ eclipse
 ![記録完了後](https://user-images.githubusercontent.com/85561543/135717535-cddf5d4f-14e7-4eee-9d32-1b6bc70c4ff8.png)
 
 # 合計学習時間の表示  
-マイページにて、これまでの学習時間の合計が表示されます。
+マイページにて、これまでの学習時間の合計が表示されます。  
 （9月のアプリ制作中に動作確認で記録していた分も含まれています）  
 ![マイページ](https://user-images.githubusercontent.com/85561543/135719277-44204dc2-183d-4aa4-82e5-9e95a43e5f98.png)
