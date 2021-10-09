@@ -14,7 +14,7 @@ CSS
 JSP  
 ### バックエンド  
 JavaSE-1.8  
-### フレームワーク  
+### その他のツール  
 JavaEE  
 Tomcat8  
 Hibernate 5.2.13.Final  
