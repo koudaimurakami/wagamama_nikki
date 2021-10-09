@@ -13,7 +13,7 @@ HTML
 CSS  
 JSP  
 ### バックエンド  
-JavaSE-1.8  
+Java1.8  
 ### その他のツール  
 JavaEE  
 Tomcat8  
